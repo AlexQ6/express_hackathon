@@ -25,8 +25,8 @@ const getTasks = function (req, res) {
                 error: err.message
             });
         }
-
-        let points = (setpoints(tasks))
+         
+        let points = req.user.points
         let allTally = (taskTallyT(tasks))
         let comTally = (comTallyT(tasks))
       
@@ -37,11 +37,9 @@ const getTasks = function (req, res) {
             points: points,
             all: allTally,
             com: comTally
-
             })
     })
 };
-
 
 const getTask = function (req, res) {
     // execute the query from getTaskById
@@ -75,21 +73,20 @@ const makeTask = function (req, res) {
         res.send(err))
 };
 
-const removeTask = async function (req, res) {
-    console.log("hit via route in controller")
-    deleteTask(req.params.id).exec(async (err) => {
+const removeTask =  function (req, res) {
+   
+    deleteTask(req.params.id).exec( (err) => {
         if (err) {
             res.status(500);
             return res.json({
                 error: err.message
             });
         }
-        //res.sendStatus(204);
-        await res.redirect("/tasks/dashboard")
+     
+        console.log("DONE")
+   
     });
 };
-
-
 
 function taskEdit(req, res) {
     let id = req.params.id
@@ -123,12 +120,22 @@ const changeCompleted = function (req, res) {
                 error: err.message
             });
         }
+        updatePoints(req)
         
-        res.status(200);
         res.redirect('/tasks/dashboard');
     });
 };
 
+const updatePoints = function (req) {
+    // execute the query from updateCompleted
+    setpoints(req).then((err, points) => {
+        if (err) {
+     
+            console.log(points)
+         
+        }
+    });
+};
 
 
 module.exports = {

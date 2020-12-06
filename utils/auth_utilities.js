@@ -24,11 +24,12 @@ const updateUser = function (req) {
         }
     }
 
-    console.log(actualRequest)
+    //console.log(actualRequest)
     return User.findByIdAndUpdate(req.session.passport.user, actualRequest, {
         new: true
     });
 };
+
 
 
 module.exports = {updateUser, deleteUser}
