@@ -30,7 +30,7 @@ router.post('/login', passport.authenticate('local', {
     }), (req, res) => {
     console.log(req.body)
     if ( req.body.remember_me ) {
-        req.session.cookie.originalMaxAge = 24 * 60 * 60 * 1000 // Expires in 1 day
+        req.session.cookie.MaxAge = 24 * 60 * 60 * 1000 // Expires in 1 day
     } else {
         req.session.cookie.expires = false
     }

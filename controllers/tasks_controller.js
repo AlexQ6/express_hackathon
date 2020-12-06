@@ -55,6 +55,7 @@ const getTask = function (req, res) {
             task: task,
             user: req.user
             })
+            
     });
 };     
 
